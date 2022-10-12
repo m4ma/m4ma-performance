@@ -18,6 +18,7 @@ private until publication.
   - cppRouting
   - igraph
   - parallel
+  - profvis
   - TSP
 - The m4ma R package containing optimized code
 
@@ -25,7 +26,7 @@ The R packages on CRAN can be installed via:
 
 ```r
 
-install.packages(c("cppRouting", "igraph", "parallel", "TSP"))
+install.packages(c("cppRouting", "igraph", "parallel", "profvis", "TSP"))
 
 ```
 
