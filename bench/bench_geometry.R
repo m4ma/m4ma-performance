@@ -48,3 +48,5 @@ ratio_df = calc_exec_time_ratio(bench_df)
 
 # Create plot of benchmark results
 plot_benchmark(bench_df, ratio_df)
+
+ggsave('../bench/figures/bench_geometry.png', width = 8, height = 4)
