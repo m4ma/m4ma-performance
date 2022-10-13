@@ -26,6 +26,29 @@ bench_fun = function(fun_name, ..., extra_name = NULL, n_eval = 1000) {
   return(df)
 }
 
+# Benchmark factory function when R and Rcpp need different args
+bench_fun_diff_args = function(
+    fun_name, r_args, rcpp_args, extra_name = NULL, n_eval = 1000
+) {
+  # Get R and Rcpp functions
+  r = get(paste0(fun_name, '_r'))
+  cpp = get(paste0(fun_name, '_rcpp'))
+  
+  # Benchmark
+  df = microbenchmark(
+    do.call(r, r_args),
+    do.call(cpp, rcpp_args),
+    times = n_eval
+  )
+  
+  levels(df$expr) = c('R', 'Rcpp')
+  
+  # Assign special name for different conditions if necessary
+  df['fun_name'] = if (is.null(extra_name)) fun_name else extra_name
+  
+  return(df)
+}
+
 # Compute median exec time ratio
 calc_exec_time_ratio = function(df) {
   ratio_df = df %>%
