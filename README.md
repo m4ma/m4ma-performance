@@ -14,21 +14,8 @@ private until publication.
 
 ## Requirements
 - R and RStudio
-- R packages available on CRAN:
-  - cppRouting
-  - igraph
-  - parallel
-  - profvis
-  - TSP
+- Access to the `predped` GitHub repository (email c.tanis@uva.nl for access)
 - The m4ma R package containing optimized code
-
-The R packages on CRAN can be installed via:
-
-```r
-
-install.packages(c("cppRouting", "igraph", "parallel", "profvis", "TSP"))
-
-```
 
 The m4ma package can be install from GitHub via devtools:
 
@@ -37,6 +24,37 @@ The m4ma package can be install from GitHub via devtools:
 install.packages("devtools")
 
 devtools::install_github("m4ma/m4ma")
+
+```
+
+### Profiling
+- R packages available on CRAN:
+  - cppRouting
+  - igraph
+  - parallel
+  - profvis
+  - TSP
+
+These can be installed via:
+
+```r
+
+install.packages(c("cppRouting", "igraph", "parallel", "profvis", "TSP"))
+
+```
+
+### Benchmarking
+- R packages available on CRAN:
+  - dplyr
+  - ggplot2
+  - microbenchmark
+  - tidyr
+
+These R packages on CRAN can be installed via:
+
+```r
+
+install.packages(c("dplyr", "ggplot2", "microbenchmark", "tidyr"))
 
 ```
 
