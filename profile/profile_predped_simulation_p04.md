@@ -17,7 +17,7 @@ To profile the code, we use the R package `profvis` which relies on R's native
 tool for profiling called `Rprof`.
 
 The simulation of the Predictive Pedestrian model runs slower the more 
-pedestrians are in the simulation and the more iterations it runs for. That is, 
+pedestrians are in the simulation. That is, 
 many functions called during the simulation will also run slower under these 
 conditions, too. Realistically, the model will be used for up to 50 
 pedestrians. Since the simulation typically starts with 0 pedestrians, and
