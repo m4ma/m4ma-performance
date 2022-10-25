@@ -61,13 +61,24 @@ calc_exec_time_ratio = function(df) {
       names_from = c('expr'),
       values_from = 'med'
     ) %>%
-    mutate(ratio = R / Rcpp) # calc ratio
+    mutate(ratio = round(R / Rcpp, 2)) # calc ratio
   
   return(ratio_df)
 }
 
 # Create benchmark plot with exec time ratio
 plot_benchmark = function(bench_df, ratio_df) {
+  # Reorder fun names according to median ratio
+  bench_df$fun_name = factor(
+    bench_df$fun_name,
+    levels = levels(reorder(ratio_df$fun_name, ratio_df$ratio))
+  )
+  
+  ratio_df$fun_name = factor(
+    ratio_df$fun_name,
+    levels = levels(reorder(ratio_df$fun_name, ratio_df$ratio))
+  )
+  
   p = ggplot(bench_df, aes(
       x = log10(time*1e-6), # convert to ms
       y = fun_name, 
@@ -76,7 +87,7 @@ plot_benchmark = function(bench_df, ratio_df) {
     geom_boxplot() +
     geom_text( # add ratio
       data = ratio_df,
-      aes(y = seq_len(nrow(ratio_df)), x = 0, label = round(ratio, 2)),
+      aes(y = fun_name, x = 0, label = ratio),
       inherit.aes = FALSE
     ) +
     labs(
