@@ -3,7 +3,7 @@
 library(m4ma)
 
 # Get benchmark helper functions
-source('../bench/bench_helpers.R')
+source('bench_helpers.R')
 
 ## Get dummy objects
 
@@ -102,13 +102,9 @@ bench_df = rbind(
     mutate(fun_name = 'iCones'),
   bench_fun('iCones2Cells', cones, v[1]),
   bench_fun('blockedAngle', n, state, p_pred, objects),
-  bench_fun('getLeaders', n, state_leaders, centres, objects)
+  bench_fun('getLeaders', n, state, centres, objects),
+  bench_fun('getBuddy', n, group, a, p_pred, centres,
+            objects, FALSE, state)
 )
 
-# Calc ratio of execution times R/Rcpp
-ratio_df = calc_exec_time_ratio(bench_df)
-
-# Create plot of benchmark results
-plot_benchmark(bench_df, ratio_df)
-
-ggsave('../bench/figures/bench_utility_extra.png', width = 8, height = 4)
+write.csv(bench_df, file.path('data', 'bench_utility_extra.csv'))

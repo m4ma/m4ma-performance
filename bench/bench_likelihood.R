@@ -1,15 +1,17 @@
 # Benchmark Performance Likelihood Functions
 
 library(m4ma)
+library(parallel)
 
 # Get benchmark helper functions
-source('../bench/bench_helpers.R')
+source('bench_helpers.R')
 
 # Get predped functions for likelihood estimation
-source("RCore/PredictivePedestrian.R")
+source("../predped/RCore/pp_estimation.R")
+source("../predped/RCore/pp_parameter.R")
 
 # Load test case
-obj_name = load('../bench/trace_i.rda')
+obj_name = load('trace_i.rda')
 
 # Get subject parameters
 p = attr(get(obj_name), 'pMat')
@@ -45,10 +47,4 @@ bench_df = microbenchmark(
 ) %>%
   mutate(fun_name = 'msumloglike')
 
-# Calc ratio of execution times R/Rcpp
-ratio_df = calc_exec_time_ratio(bench_df)
-
-# Create plot of benchmark results
-plot_benchmark(bench_df, ratio_df)
-
-ggsave('../bench/figures/bench_utility.png', width = 8, height = 4)
+write.csv(bench_df, file.path('data', 'bench_likelihood.csv'))

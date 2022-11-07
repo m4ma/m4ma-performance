@@ -3,7 +3,7 @@
 library(m4ma)
 
 # Get benchmark helper functions
-source('../bench/bench_helpers.R')
+source('bench_helpers.R')
 
 # Create dummy objects
 n = 1
@@ -47,10 +47,4 @@ bench_df = rbind(
   bench_fun('seesGoalOK', n, objects, state, centres, ok)
 )
 
-# Calc ratio of execution times R/Rcpp
-ratio_df = calc_exec_time_ratio(bench_df)
-
-# Create plot of benchmark results
-plot_benchmark(bench_df, ratio_df)
-
-ggsave('../bench/figures/bench_see.png', width = 8, height = 4)
+write.csv(bench_df, file.path('data', 'bench_see.csv'))

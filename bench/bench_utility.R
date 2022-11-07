@@ -3,10 +3,10 @@
 library(m4ma)
 
 # Get benchmark helper functions
-source('../bench/bench_helpers.R')
+source('bench_helpers.R')
 
 # Load test case
-obj_name = load('../bench/trace_i.rda')
+obj_name = load('trace_i.rda')
 
 # Get subject parameters
 p = attr(get(obj_name), 'pMat')[1, ]
@@ -79,10 +79,4 @@ bench_df = rbind(
   )
 )
 
-# Calc ratio of execution times R/Rcpp
-ratio_df = calc_exec_time_ratio(bench_df)
-
-# Create plot of benchmark results
-plot_benchmark(bench_df, ratio_df)
-
-ggsave('../bench/figures/bench_utility.png', width = 8, height = 4)
+write.csv(bench_df, file.path('data', 'bench_utility.csv'))

@@ -10,17 +10,31 @@
 # settings is adapted from the scripts `3-play_main.R`.
 
 library(m4ma)
+library(parallel)
 
 # Load predped functions to run simulation
 rm(list = ls())
-source("RCore/PredictivePedestrian.R")
+source("../predped/RCore/pp_geometry.R")    # geometry functions
+source("../predped/RCore/pp_plot.R")        # plotting functions
+source("../predped/RCore/pp_see.R")         # line intersection and "sees" functions
+source("../predped/RCore/pp_predict.R")     # prediction functions
+source("../predped/RCore/pp_utility.R")     # utility functions
+source("../predped/RCore/pp_parameter.R")   # parameter management functions
+source("../predped/RCore/pp_dcm.R")         # DCM functions
+source("../predped/RCore/pp_route.R")       # routing and tour functions
+source("../predped/RCore/pp_goals.R")       # goal management functions
+source("../predped/RCore/pp_block.R")       # object blocking functions
+source("../predped/RCore/pp_collide.R")     # fix collisions functions
+source("../predped/RCore/pp_simulate.R")    # iterate simulation functions
+source("../predped/RCore/pp_flow.R")        # flow metrics functions
+source("../predped/RCore/pp_estimation.R")  # estimation functions
 
 # Get benchmark helper functions
-source('../bench/bench_helpers.R')
+source('bench_helpers.R')
 
 # Load state of simulation after 250 iterations
 trace = readRDS(
-  "Experiments/Escience/Data/3-play/play_escience_m01s02p04r002.RDS"
+  "../predped/Experiments/Escience/Data/3-play/play_escience_m01s02p04r002.RDS"
 )
 
 ## Settings for simulation
@@ -49,7 +63,7 @@ nests = list(Central = c(0, 6, 17, 28),
 # All alternatives a member of 2 nests so always alpha = .5
 alpha_nests = setAlpha(nests)
 
-play_settings = read.csv(paste("Experiments/", exp_id, 
+play_settings = read.csv(paste("../predped/Experiments/", exp_id, 
                                  "/Config/play_settings.csv", sep = ""),
                            stringsAsFactors = FALSE)
 
@@ -61,8 +75,8 @@ p_interactionTime = play_p$interactionTime  # cycles to stay at goals
 p_pReroute = play_p$pReroute                # Probability of reroute,
 
 # Directory names
-dat_dir = paste("Experiments/", exp_id, "/Data", sep = "")
-fig_dir = paste("Experiments/", exp_id, "/Figures", sep = "")
+dat_dir = paste("../predped/Experiments/", exp_id, "/Data", sep = "")
+fig_dir = paste("../predped/Experiments/", exp_id, "/Figures", sep = "")
 plot_dir =  ""
 
 # File names 
@@ -188,4 +202,4 @@ ggplot(plot_df, aes(
     y = 'Functions used from m4ma instead of predped'
   ) + theme_classic()
 
-ggsave('../bench/figures/bench_moveAll_ablation.png', width = 8, height = 4)
+write.csv(bench_df, file.path('data', 'bench_moveAll.csv'))
