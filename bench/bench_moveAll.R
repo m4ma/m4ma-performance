@@ -179,7 +179,7 @@ ablations = list(
   )
 )
 
-# Measure time for each ablation
+# Measure time for each substitution
 elapsed_time = sapply(ablations, run_sim_wo_funs)
 
 # Create df for plotting
@@ -189,17 +189,4 @@ plot_df = data.frame(
   ratio = round(sapply(elapsed_time, function(x) elapsed_time[1]/x), 2)
 )
 
-# Plot elapsed times for each ablation
-ggplot(plot_df, aes(
-    x = time,
-    y = reorder(labels, time),
-    label = reorder(ratio, time)
-  )) + 
-  geom_col(fill = 'steelblue') +
-  geom_text() +
-  labs(
-    x = 'Total elapsed time (in s)',
-    y = 'Functions used from m4ma instead of predped'
-  ) + theme_classic()
-
-write.csv(bench_df, file.path('data', 'bench_moveAll.csv'))
+write.csv(plot_df, file.path('data', 'bench_moveAll.csv'))
