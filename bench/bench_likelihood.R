@@ -9,12 +9,19 @@ source('bench_helpers.R')
 # Get predped functions for likelihood estimation
 source("../predped/RCore/pp_estimation.R")
 source("../predped/RCore/pp_parameter.R")
+source("../predped/RCore/pp_utility.R")
 
-# Load test case
-obj_name = load('trace_i.rda')
+# Load small test case (max 3 subjects for 3 iterations)
+load('play_escience_m01s02p02r001.rda')
 
 # Get subject parameters
-p = attr(get(obj_name), 'pMat')
+p_small = attr(trace_small, 'pMat')
+
+# Load large test case (max 50 subjects for 600 iterations)
+load('play_escience_m01s02p03r001.rda')
+
+# Get subject parameters
+p_large = attr(trace_large, 'pMat')
 
 # Define nests and alpha lists
 nests = list(
@@ -38,13 +45,21 @@ alpha = list(
 cell_nest = m4ma::get_cell_nest()
 
 # Transform trace into format for C++ processing
-trace_rcpp = m4ma::create_rcpp_trace(get(obj_name))
+trace_rcpp_small = m4ma::create_rcpp_trace(trace_small)
+trace_rcpp_large = m4ma::create_rcpp_trace(trace_large)
 
-bench_df = microbenchmark(
-  R = msumlogLike(p, get(obj_name), cores = 1),
-  Rcpp = m4ma::msumlogLike(p, trace_rcpp, nests, alpha, cell_nest),
+bench_df_small = microbenchmark(
+  R = msumlogLike(p_small, trace_small, cores = 1),
+  Rcpp = m4ma::msumlogLike(p_small, trace_rcpp_small, nests, alpha, cell_nest),
   times = 1000
 ) %>%
-  mutate(fun_name = 'msumloglike')
+  mutate(fun_name = 'msumloglike-3_15')
 
-write.csv(bench_df, file.path('data', 'bench_likelihood.csv'))
+bench_df_large = microbenchmark(
+  R = msumlogLike(p_large, trace_large, cores = 1),
+  Rcpp = m4ma::msumlogLike(p_large, trace_rcpp_large, nests, alpha, cell_nest),
+  times = 10
+) %>%
+  mutate(fun_name = 'msumloglike-50_600')
+
+write.csv(rbind(bench_df_small, bench_df_large), file.path('data', 'bench_likelihood.csv'))

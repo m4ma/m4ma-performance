@@ -45,7 +45,7 @@ p_id = "p04"         # p[play id]
 r_id = "r002"        # r[repetition id]
 
 # Cores (only 1 possible on Windows)
-cores = 1            # parallel process
+cores = 50            # parallel process
 
 # Output control
 plotSim = FALSE       # Plot to RStudio plot window
@@ -162,12 +162,13 @@ fun_names_util_extra = c(
   'getBuddy'
 )
 
+fun_names_block = c(
+  'bodyObjectOK'
+)
+
 # Define list of functions to use from m4ma instead of predped
 ablations = list(
   '[none]' = character(0),
-  'line.line.intersection' = c('line.line.intersection'),
-  'seesGoal' = c('seesGoal'),
-  'dist1' = c('dist1'),
   'geometry' = fun_names_geometry,
   'see' = fun_names_see,
   'util_extra' = fun_names_util_extra,
@@ -176,6 +177,14 @@ ablations = list(
   'geometry + util_extra' = c(fun_names_geometry, fun_names_util_extra),
   'geometry + see + util_extra' = c(
     fun_names_geometry, fun_names_see, fun_names_util_extra
+  ),
+  'block' = c(fun_names_block),
+  'see + block' = c(fun_names_see, fun_names_block),
+  'see + util_extra + block' = c(
+    fun_names_see, fun_names_util_extra, fun_names_block
+  ),
+  'geometry + see + util_extra + block' = c(
+    fun_names_geometry, fun_names_see, fun_names_util_extra, fun_names_block
   )
 )
 

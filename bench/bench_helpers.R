@@ -95,8 +95,7 @@ plot_benchmark = function(bench_df, ratio_df) {
       y = 'Function name',
       color = ''
     ) +
-    scale_color_manual(values = c('steelblue', 'indianred')) + 
-    theme_classic()
+    scale_color_manual(values = c('steelblue', 'indianred'))
   
   return(p)
 }
