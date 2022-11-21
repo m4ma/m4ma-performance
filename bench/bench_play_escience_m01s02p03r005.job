@@ -1,0 +1,8 @@
+#!/bin/bash
+#SBATCH --time=00:15:00
+#SBATCH -N 4
+#SBATCH --ntasks-per-node=16
+. /etc/bashrc
+. /etc/profile.d/lmod.sh
+module load R/4.1.2
+R CMD BATCH bench_play_escience_m01s02p03r005.R

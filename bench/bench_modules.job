@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH --time=00:15:00
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=1
+. /etc/bashrc
+. /etc/profile.d/lmod.sh
+module load R/4.1.2
+R CMD BATCH bench_see.R
+R CMD BATCH bench_geometry.R
+R CMD BATCH bench_utility.R
+R CMD BATCH bench_utility_extra.R
+R CMD BATCH bench_likelihood.R
+R CMD BATCH bench_block.R
