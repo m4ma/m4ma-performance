@@ -1,12 +1,13 @@
 "","labels","time","ratio"
-"[none].elapsed","[none]",84.598,1
-"line.line.intersection.elapsed","line.line.intersection",16.274,5.2
-"seesGoal.elapsed","seesGoal",21.297,3.97
-"dist1.elapsed","dist1",82.954,1.02
-"geometry.elapsed","geometry",99.338,0.85
-"see.elapsed","see",8.43299999999999,10.03
-"util_extra.elapsed","util_extra",41.882,2.02
-"geometry + see.elapsed","geometry + see",11.383,7.43
-"see + util_extra.elapsed","see + util_extra",8.17099999999999,10.35
-"geometry + util_extra.elapsed","geometry + util_extra",58.508,1.45
-"geometry + see + util_extra.elapsed","geometry + see + util_extra",11.324,7.47
+"[none].elapsed","[none]",4.226,1
+"geometry.elapsed","geometry",3.512,1.2
+"see.elapsed","see",0.965,4.38
+"util_extra.elapsed","util_extra",2.342,1.8
+"geometry + see.elapsed","geometry + see",0.959,4.41
+"see + util_extra.elapsed","see + util_extra",0.960999999999999,4.4
+"geometry + util_extra.elapsed","geometry + util_extra",2.181,1.94
+"geometry + see + util_extra.elapsed","geometry + see + util_extra",0.918000000000003,4.6
+"block.elapsed","block",2.776,1.52
+"see + block.elapsed","see + block",0.420000000000002,10.06
+"see + util_extra + block.elapsed","see + util_extra + block",0.511000000000003,8.27
+"geometry + see + util_extra + block.elapsed","geometry + see + util_extra + block",0.453000000000003,9.33
