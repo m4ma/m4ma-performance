@@ -25,6 +25,12 @@ To evaluate the functions, we created test objects that were inspired by objects
 
 We ran the benchmarks on a single core on a single node on the [DAS-6](https://www.cs.vu.nl/das/home.shtml) cluster. To reproduce the measurements on the cluster run the `bench_modules.job` script. To reproduce them locally, set the working directory to `bench/` and run each benchmark script individually. 
 
+All measurements are stored in the `data/` directory. Each CSV file contains three columns:
+
+- expr: Whether R or Rcpp implementations were executed
+- time: The execution time (in nanoseconds)
+- fun_name: The name of the executed function
+
 ### Benchmark Simulation Performance
 To see how different reimplementations affect the performance of the entire simulation, we substituted original implementations with optimized ones. We substituted entire modules (i.e., multiple functions) at once to reduce the amount of simulation runs.
 
@@ -38,11 +44,17 @@ Second, we looked at the effect on running the entire long simulation (setup: m0
 - r004: 'see', 'utility_extra', and 'geometry' modules substituted
 - r005: 'see', 'utility_extra', 'geometry', and 'block' modules substituted
 
-We selected these combinations based on the benchmark of one additional iteration (see previous paragraph). 
+We selected these combinations based on the benchmark of one additional iteration (see previous paragraph). Again, this benchmark was run on 50 cores distributed over 4 nodes on DAS-6. It can be reproduced on the cluster with the `bench_play_escience_m01s02p03r00*.job` scripts and locally with `bench_play_escience_m01s02p03r00*.R`.
 
-The measurements are stored in the `data/` directory. Once the measurement are there, the figures can be recreated by running the `create_plots.R` script. Again, this benchmark was run on 50 cores distributed over 4 nodes on DAS-6. It can be reproduced on the cluster with the `bench_play_escience_m01s02p03r00*.job` scripts and locally with `bench_play_escience_m01s02p03r00*.R`.
+All measurements are stored in the `data/` directory. Each CSV file contains three columns:
+
+- labels: The names of the substituted modules
+- time: The elapsed time (in seconds)
+- ratio: The relative improvement to no substitution
 
 ## Results
+The figures can be recreated by running the `create_plots.R` script.
+
 ### Benchmark Individual Functions
 Execution times are displayed in ms on the log10 scale. Because for most figures the function names were long, we decided to display execution time on the x-axis and the names on the y-axis (against the convention). Numbers next to the figure elements indicate the relative improvement between R and Rcpp implementations (median R/median Rcpp execution time).
 
