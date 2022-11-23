@@ -14,8 +14,8 @@ private until publication.
 
 ## Requirements
 - R and RStudio
-- Access to the `predped` GitHub repository (email c.tanis@uva.nl for access)
-- The m4ma R package containing optimized code
+- Access to the `predped` GitHub repository (email c.c.tanis@uva.nl for access)
+- The [m4ma](https://github.com/m4ma/m4ma) R package containing optimized code
 
 The m4ma package can be install from GitHub via devtools:
 
