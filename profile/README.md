@@ -68,25 +68,27 @@ The `utility` function calls several sub functions from the `pp_utility` module:
 `predClose`, `getLeaders`, `getBuddy`, `blockedAngle`, and `destinationAngle`. 
 These in turn call functions from the `pp_geometry` and `pp_see` modules.
 
-The functions `bodyObjecjtOK` and `okObject` also call sub functions from the
+The functions `bodyObjectOK` and `okObject` also call sub functions from the
 `pp_geometry` and `pp_see` modules.
 
 One function from the `pp_see` module that is called very frequently and takes
 much time is `line.line.intersection`. Within this function, calculating the
 determinant of a 2x2 matrix is especially costly.
 
-Based on the profiling results, we conclude that optimizing the functions in the
-`pp_geometry` and `pp_see` modules will likely lead to improvements in the speed
-of the simulation. Moreover, optimizing the functions in the `pp_utility` module
-could lead to further improvements. Most importantly, we expect that optimizing
-the function `line.line.intersection` in the `pp_see` module will lead to the
-greatest speed improvements.
+Based on the profiling results, we conclude that optimizing the functions in the following
+modules will likely lead to improvements in the speed of the simulation:
+
+- `pp_see`
+- `pp_geometry`
+- `pp_utility`
+
+Most importantly, we expect that optimizing the function `line.line.intersection` in the `pp_see` module will lead to the greatest speed improvements.
 
 ### Profiling the Simulation with Improvements
-With optimized functions from the `pp_geometry`, `pp_see`, and `pp_utility` modules, the profiling shows that the optimization and reimplementation substantiall improved the speed of the simulation and the slow functions identified in the initial profiling. The function that remains costly, is `bodyObjectOK`. We therefore conclude that optimizing this function should even further improve the simulation speed.
+With optimized functions from the `pp_geometry`, `pp_see`, and `pp_utility` modules, the profiling shows that the optimization and reimplementation substantially improved the speed of the simulation and the slow functions identified in the initial profiling. The function that remains costly, is `bodyObjectOK`. We therefore conclude that optimizing this function should even further improve the simulation speed.
 
 ### Profiling the Estimation
-Againt, most time for executing the likelihood estimation function is spent on `mclapply`, which applies an anonymous function to all iterations or pedestrians in the simulation result. The most expensive sub function is `like_state`, which computes the likelihood of a single iteration/subject. This function splits into two functions that consume a lot of time: `utility` and `pCNL`, which calculate the utitlity movement decisions and the probabilities of making theses decisions based on their utility. Within the `utility` function, the function to compute the utility for the distance to other pedestrians called `idUtility` is the most expensive (it accounts for 2/3 of the execution time of `utility`).
+Again, most time for executing the likelihood estimation function is spent on `mclapply`, which applies an anonymous function to all iterations or pedestrians in the simulation result. The most expensive sub function is `like_state`, which computes the likelihood of a single iteration/subject. This function splits into two functions that consume a lot of time: `utility` and `pCNL`, which calculate the utility of probabilities movement decisions. Within the `utility` function, the function to compute the utility for the distance to other pedestrians called `idUtility` is the most expensive (it accounts for 2/3 of the execution time of `utility`).
 
 Based on these insights, we conclude that optimizing the `utility` and `pCNL` functions including their sub functions will lead to the highest speed improvements for the parameter estimation function.
 
