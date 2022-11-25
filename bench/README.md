@@ -36,7 +36,7 @@ To see how different reimplementations affect the performance of the entire simu
 
 First, we looked at the effect on running the simulation for an additional iteration at full capacity. That is, we ran the long simulation (setup: m01, s02) until it was at its max. of 50 pedestrians at 250 iterations. Then, we substituted different modules with the optimized versions and ran the simulation for an additional iteration. We measured the time to finish the additional iteration. This benchmark was run on 50 cores distributed over 4 nodes on DAS-6 to account for parallelization over pedestrians. It can be reproduced on the cluster with the `bench_moveAll.job` script and locally with `bench_moveAll.R`.
 
-Second, we looked at the effect on running the entire long simulation (setup: m01, s02) for 600 iterations with a max. of 50 pedestrians. This imitates pedestrian behavior over 5 minute real time (1 iteration = 0.5 seconds). We measured the time to complete the simulation while substituting different modules with optimized versions. Because running the long simulations is computationally expensive we only looked at 4 substitutions:
+Second, we looked at the effect on running the entire long simulation (setup: m01, s02) for 600 iterations with a max. of 50 pedestrians. This imitates pedestrian behavior over 5 minutes real time (1 iteration = 0.5 seconds). We measured the time to complete the simulation while substituting different modules with optimized versions. Because running the long simulations is computationally expensive we only looked at 4 substitutions:
 
 - r001: No substitution, only original R code
 - r002: 'see' module substituted
